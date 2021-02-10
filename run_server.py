@@ -73,6 +73,23 @@ url = '192.168.43.224'
 port = '8000'
 
 def convert_images(server_to_converter, shared_img_arr, img_arr_shape):
+    """
+    Summary line.
+
+    This function converts the encoded b4bit array from DJI quadcopter to a RGB image for processing
+    in the PC
+
+    Parameters:
+    -----------
+    server_to_converter: a queue that contains the sensor data (image, veclocities) from DJI quadcopter
+    shared_img_arr: a multiprocessing array that can be accessed by multiple processes
+    img_arr_shape: dimentions (width and height) of the image
+
+    Returns:
+    ---------
+    None
+
+    """
     img_arr = np.frombuffer(shared_img_arr.get_obj(), dtype=np.uint8).reshape(img_arr_shape)
     while True:
         item = server_to_converter.get()
@@ -82,10 +99,7 @@ def convert_images(server_to_converter, shared_img_arr, img_arr_shape):
         bytes_data = io.BytesIO(img_data)
         image = Image.open(bytes_data)
         img_arr[...] = cv2.cvtColor(np.asarray(image), cv2.COLOR_BGR2RGB)
-        # shared_array = np.frombuffer(shared_array.get_obj(), dtype=np.uint8)
-        # shared_array.shape = shape
-        # shared_array[...] = np.asarray(image)
-        # shared_array.shape = shape[0]*shape[1]
+
 
 
 def run_controller(shared_img_arr, img_arr_shape, shared_cmd_arr, override_flight_mode_command, rgb_images,
@@ -95,7 +109,6 @@ def run_controller(shared_img_arr, img_arr_shape, shared_cmd_arr, override_fligh
     frame = np.frombuffer(shared_img_arr.get_obj(), dtype=np.uint8).reshape(img_arr_shape)
     cmd_arr = np.frombuffer(shared_cmd_arr.get_obj(), dtype=np.double)
     quad_controller = Controller(save_video=save_video, save_raw_video=save_raw_video)
-    #frame_prev = None
     t_prev = time.time()
 
     cv2.namedWindow('Processed Frame', cv2.WINDOW_NORMAL)
@@ -104,10 +117,6 @@ def run_controller(shared_img_arr, img_arr_shape, shared_cmd_arr, override_fligh
 
     while True:
 
-        # print('t_start', t_prev)
-        #if frame_prev is None:
-        #    frame_prev = frame
-        #    continue
         processed_frame = quad_controller.process_new_frame(frame, rgb_images, scores_cache, frame_prev, sensor_val, drone_yaw.value, drone_vx.value, drone_vy.value, drone_vz.value, is_frames=False)
         fps = 1./(time.time() - t_prev)
 
@@ -190,7 +199,6 @@ if __name__ == '__main__':
             }
             # print(command)
             return jsonify(command)
-            # return jsonify({'test': 1})
 
 
     processes = []
@@ -212,13 +220,8 @@ if __name__ == '__main__':
     ### New Paras
     rgb_images=deque()
     scores_cache=deque()
-    # all_events = None
     sensor_val = None
     frame_prev = deque()
-    # rgb_prev = deque()
-    # print("drone_yaw",drone_yaw)
-    # print("drone_yawvv",drone_yaw.value)
-
 
     controller_process = Process(target=run_controller, args=(shared_img_arr, shape_img_arr, shared_cmd_arr,
                                                               override_flight_mode_command, rgb_images, scores_cache,
