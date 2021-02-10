@@ -7,15 +7,15 @@ def update_action_classification_qh(self, frame, cov_mei, cov_mhi, mean_mei_hu, 
     
         Parameters:
         ------------
-        frame:
-        cov_mei:
-        cov_mhi:
-        mean_mei_hu: 
-        mean_mhi_hu: 
-        rgb_images:
-        scores_cache:
-        is_frames:
-        use_probability:
+        frame: the current rgb frame
+        cov_mei: the covariance of motion energy images
+        cov_mhi: the covariance of motion history images
+        mean_mei_hu: the mean of motion energy images's hu moments
+        mean_mhi_hu: the mean of motion history images's hu moments
+        rgb_images: the stream of rgb images to compute MEI and MHI
+        scores_cache: the manhattan distance between traning distribution and test sample
+        is_frames: a boolean variable specifying if the MEI and MHI are computed for rgb frames or events
+        use_probability: a boolean variable specifying if a probability is used for action recognition result
     
         Returns:
         ------------

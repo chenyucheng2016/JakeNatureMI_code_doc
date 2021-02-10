@@ -6,15 +6,15 @@ def process_new_frame(self, frame, rgb_images, scores_cache, frame_prev, sensor_
         Parameters:
         ------------
         frame: the orginal rgb frame captured from the DJI quadcopter front camera
-        rgb_images:
-        scores_cache:
-        frame_prev: 
-        sensor_val:
+        rgb_images: the stream of rgb images to compute MEI and MHI
+        scores_cache: the manhattan distance between traning distribution and test sample
+        frame_prev: the previous rgb frames
+        sensor_val: 
         drone_yaw: the yaw angle of the quadcopter frm onboard sensor
         drone_vx: the velocity along the longitudinal axis of the quadcopter
         drone_vy: the velocity along the lateral axis of the quadcopter
         drone_vz: the velocity along the vertical axis of the quadcopter pointing toward the earth
-        is_frames: 
+        is_frames: a boolean variable specifying if the MEI and MHI are computed for rgb frames or events
 
         Returns:
         ------------

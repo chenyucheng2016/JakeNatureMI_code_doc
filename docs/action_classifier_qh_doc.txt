@@ -7,16 +7,16 @@ def calmeimhi(video_clip, taumin, taumax, slide_step, tol, sensor_size, is_frame
     Parameters:
     ------------
     video_clip: a stream of orginal rgb frames
-    taumin:
-    taumax:
-    slide_step:
-    tol:
-    sensor_size:
+    taumin: the start of time window for the video clip 
+    taumax: the end of time window for the video clip 
+    slide_step: the number of skipped frames to compute MEI and MHI 
+    tol: the threshold of triggering MEI and MHI
+    sensor_size: the resolution (width x height) of capture rgb image
     is_frame:a boolean variable specifying if the MEI and MHI are computed for rgb frames or events
     
     Returns:
     ------------
-    mei: the energy image of the given stream of frames
+    mei: the motion energy image of the given stream of frames
     mhi: the motion history image of the given stream frame
     
     """
