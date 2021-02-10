@@ -359,55 +359,10 @@ def compute_hof_features(flow_in, scene_imgs_in, mask_imgs_in, is_frames=True):
     # sensor_val = None
     # all_events = None
     features_out = []
-    # for idx, path in enumerate(scene_imgs_in):  # image folder
-    #     # todo: add ability to 'set' the frame rate and resolution
-    #     if not idx % 1 == 0:
-    #         continue
-    #     t = idx * dt
-    #     print("Computing HOF features {} / {}".format(idx, len(scene_imgs_in)))
-    #
-    #     # get frames and convert to grayscale
-    #     frame = cv2.imread(path)  # image folder
-    #     mask = cv2.imread(mask_imgs_in[idx])
-    #
-    #     # resize image for optical flow calculation
-    #     width = int(frame.shape[1] * img_scale)
-    #     height = int(frame.shape[0] * img_scale)
     curr_gray = scene_imgs_in
     # curr_gray = cv2.resize(scene_imgs_in, (width, height), interpolation=cv2.INTER_AREA)
     mask = mask_imgs_in
 
-    # curr_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    # if prev_gray is None:
-    #     prev_gray = curr_gray
-
-    # if is_frames:
-    #     flow = compute_optical_flow([curr_gray, prev_gray])
-    # else:
-    #         # flow = compute_optical_flow([curr_gray, prev_gray])
-    #         # convert frames to events
-    #     frame_events, num_events, sensor_val = get_events_from_frames(curr_gray, t, prev_gray, t - dt, sensor_val)
-    #     prev_gray = curr_gray
-    #
-    #     # event_img = visualize_events(num_events, thresh=2)
-    #     # cv2.imshow('event image', event_img)
-    #     # cv2.waitKey(1)
-    #
-    #         # lump frames
-    #     if all_events is None:
-    #         all_events = frame_events
-    #     else:
-    #         all_events = np.hstack((all_events, frame_events))
-    #         # only use events from the previous n *dt seconds
-    #     tau = 5 * dt
-    #     event_window = all_events[:, all_events[2, :] > t - tau]
-    #     # get optical flow from event data
-    #     flow = get_event_optical_flow(event_window, flow_shape=curr_gray.shape, bins=(bin_row, bin_col, window_size), t=t, dt=dt)
-
-        # visualize_hof_algorithm(frame, flow, mask)
-
-        # get target bounding box
-        # box = rectangle_from_img_mask(mask)
     box = mask
 
     if box is not None:

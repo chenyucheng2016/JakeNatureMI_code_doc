@@ -32,13 +32,21 @@ PHOTO_CURRENT_CONST = 1.5E-2
 
 def get_events_from_frames(cur_gray, cur_t, prev_gray, prev_t, prev_sensor_val=None):
     """
+    Summary line.
+
     This is the simulation of the event camera from grayscale images
-    :param cur_gray: current grayscale image at time cur_t
-    :param cur_t: more recent time, cur_t > prev_t
-    :param prev_gray: previous grayscale image at time prev_t
-    :param prev_t: previous time, prev_t < cur_t
-    :param prev_sensor_val: sensor val at the previous frame
-    :return: return 4xN array of events, number of events as an array the size of the image, and the final sensor value
+
+    Parameters:
+    ------------
+    cur_gray: current grayscale image at time cur_t
+    cur_t: more recent time, cur_t > prev_t
+    prev_gray: previous grayscale image at time prev_t
+    prev_t: previous time, prev_t < cur_t
+    prev_sensor_val: sensor val at the previous frame
+
+    Returns:
+    ------------
+    4xN array of events, number of events as an array the size of the image, and the final sensor value
     """
 
     if prev_sensor_val is None:
@@ -191,76 +199,4 @@ def get_event_optical_flow(all_events, flow_shape, bins, t, dt=1./300, window_si
     return flow_out * .00000005
     # return flow_out * 5
 
-
-if __name__ == '__main__':
-    obj = "person"
-    action = "walking"  # for (obj = 'person') only
-    datum = "000"
-
-    if obj == "person":
-        scene_imgs = glob.glob("../../data/person/" + action + "/" + action + "_" + datum + "/scene/*.png")
-        img_folder = "../../data/person/" + action + "/" + action + "_" + datum + "/scene/*.png"
-        mask_imgs = glob.glob("../../data/person/" + action + "/" + action + "_" + datum + "/segmentation/*.png")
-    else:
-        scene_imgs = glob.glob("../../data/" + obj + "/" + obj + "_" + datum + "/scene/*.png")
-        mask_imgs = glob.glob("../../data/" + obj + "/" + obj + "_" + datum + "/segmentation/*.png")
-
-    # frame rate
-    dt = 1. / 300
-
-    # how many frames to use to compute temporal gradient at each time step
-    window_size = 10
-    img_scale = 0.5
-    width = int(cv2.imread(scene_imgs[0]).shape[1] * img_scale)
-    height = int(cv2.imread(scene_imgs[0]).shape[0] * img_scale)
-    sensor_size = (height, width)
-    sensor_indices = np.indices(sensor_size)
-
-    # Set up bins for histograms
-    bin_row = range(1, sensor_size[0] - 1)
-    bin_col = range(1, sensor_size[1] - 1)
-
-    # Use threshold of 0.3 for higher frame-rate stuff, but reduce to 0.6 or higher for lower (~30 fps) frame-rates
-    prev_gray = None
-    all_events = None
-    sensor_val = None
-
-    for k, img in enumerate(scene_imgs):
-        # todo: enable variable frame rate
-        # if k % 5 == 0:
-        #     continue
-        t = k * dt
-
-        # read and resize the image
-        frame = cv2.imread(img)
-        frame = cv2.resize(frame, (width, height), interpolation=cv2.INTER_AREA)
-        cv2.imshow('image', frame)
-        cur_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        if prev_gray is None:
-            prev_gray = np.zeros_like(cur_gray)
-
-        # convert frames to events
-        frame_events, num_events, sensor_val_out = get_events_from_frames(cur_gray, t, prev_gray, t-dt, sensor_val)
-        prev_gray = cur_gray
-
-        event_img = visualize_events(num_events, thresh=2)
-        cv2.imshow('event image', event_img)
-        cv2.waitKey(1)
-
-        # lump frames
-        if all_events is None:
-            all_events = frame_events
-            continue
-        else:
-            all_events = np.hstack((all_events, frame_events))
-        # only use events from the previous n *dt seconds
-        tau = 5*dt
-        event_window = all_events[:, all_events[2, :] > t - tau]
-        # get optical flow from event data
-        event_flow = get_event_optical_flow(event_window, bins=(bin_row, bin_col, window_size))
-
-        # todo: figure out why the scale is off
-        img1 = visualize_flow(frame, event_flow, decimation=5, scale=.000000005)
-        cv2.imshow('event based optical flow', img1)
-        cv2.waitKey(1)
 
