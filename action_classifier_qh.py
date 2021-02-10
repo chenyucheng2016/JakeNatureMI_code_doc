@@ -43,24 +43,12 @@ def calmeimhi(video_clip, taumin, taumax, slide_step, tol, sensor_size, is_frame
         for f in range(tau-1):
             # convert frame to np array
             # load mask & compute
-            # box = rectangle_from_img_mask(mask[f])
-            # box_next = rectangle_from_img_mask(mask[f + 1])
-            # warp_mat = np.array([[1.0, 0.0, box_next[0][0] - box[0][0]], [0.0, 1.0, box_next[0][1] - box[0][1]]])
             image = frames[f]
             image_next = frames[f + 1]
             # image_next = cv2.warpAffine(image_next, warp_mat, (image_next.shape[1], image_next.shape[0]))
             # calculate frame difference
             # if box is None:
             image_diff = image_next - image
-            # else:
-            #     # print('123',flightmode.value)
-            #     if flightmode.value == 1:
-            #         image_diff_box = image_next[int(box[0, 0]): int(box[0, 2]), int(box[0, 1]): int(box[0, 3])] - \
-            #                      image[int(box[0, 0]): int(box[0, 2]), int(box[0, 1]): int(box[0, 3])]
-            #         image_diff = np.zeros((frames.shape[1], frames.shape[2]))
-            #         image_diff[int(box[0, 0]): int(box[0, 2]), int(box[0, 1]): int(box[0, 3])] = image_diff_box
-            #     else:
-            #         image_diff = image_next - image
             # calculate mhi
             # set the pixel value to tau for the region where the image difference is above tolerance
             mhi[abs(image_diff) > tol] = tau

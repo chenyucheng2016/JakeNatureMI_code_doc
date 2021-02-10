@@ -1012,13 +1012,32 @@ class Controller:
 
     # @staticmethod
     def update_object_classification_qh(self, frame, frame_prev, all_events, t, sensor_val, ego_vx, ego_vy, is_frames, is_classify):
+        """
+        Summary line.
 
-        # if frame_count > 0:
-        #     print('calc of')
-        # else:
-        #     frame_prev = frame
+        This method uses the current and previous rgb frames to detect and (or) recognize the designated object
 
-        # parameters
+        Parameters:
+        -----------
+        frame: the current rgb frame capture by the quadcopter
+        frame_prev: all previous rgb frames
+        all_events: all events up till this time step
+        t: current time step
+        sensor_val:
+        ego_vx: the quadcopter's self longitudinal velocity
+        ego_vy: the quadcopter's self lateral velocity
+        is_frames: a boolean variable specifying whether computing over rgb frames or events
+        is_classify: a boolean variable specifying whether classifying targets after detecting the target's existence
+
+        Returns:
+        -----------
+        mask: a binary image with detected target
+        label: object target label (if classified)
+        flow: the optical flow of the current the previous frames our events
+
+
+        """
+
         dt = 1 / 30.0 ### change to real time rate
         img_scale = 1.0
         width = int(frame.shape[0] * img_scale)
@@ -1086,19 +1105,6 @@ class Controller:
             cv2.namedWindow('Ego', cv2.WINDOW_NORMAL)
             if self.save_raw_video:
                 self.out_raw_video_writer_ego.write(img3)
-
-            # classify the objects
-            # if is_classify:
-            #     # print('no saved trained model')
-            #     # print('{mask_frame2}'.format(mask_frame2=mask))
-            #     feature_list = compute_hof_features(flow, curr_gray, mask, is_frames=True)
-            #     feature_arr = np.array(feature_list)
-            #     print("feature_arr", feature_arr)
-            #     if mask is None:
-            #         print("object label is none")
-            #     else:
-            #         label_value = self.object_classifier_frame.predict(feature_arr.reshape(1,-1))
-            #         print("object label", label_value)
 
         else:
             t1 = time.time()
