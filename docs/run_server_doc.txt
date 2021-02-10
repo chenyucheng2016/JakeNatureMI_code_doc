@@ -1,0 +1,27 @@
+def convert_images(server_to_converter, shared_img_arr, img_arr_shape):
+    """
+    Summary line.
+
+    This function converts the encoded b4bit array from DJI quadcopter to a RGB image for processing
+    in the PC
+
+    Parameters:
+    -----------
+    server_to_converter: a queue that contains the sensor data (image, veclocities) from DJI quadcopter
+    shared_img_arr: a multiprocessing array that can be accessed by multiple processes
+    img_arr_shape: dimentions (width and height) of the image
+
+    Returns:
+    ---------
+    None
+
+    """
+
+def handle_request():
+        """
+        Summary line.
+
+        Communicate with the Android app. The function recieves the rgb image from the DJI quadcopter front camera,
+        the vecloices along longitudinal, lateral and vertical axis and sends control commands to the Android app.
+
+        """

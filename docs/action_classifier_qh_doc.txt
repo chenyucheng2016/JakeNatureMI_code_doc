@@ -1,0 +1,49 @@
+def calmeimhi(video_clip, taumin, taumax, slide_step, tol, sensor_size, is_frames=True):
+    """
+    Summary line.
+    
+    Calculate the MEI(Enegery Image) and MHI (Motion History Image) of a stream of images
+    
+    Parameters:
+    ------------
+    video_clip: a stream of orginal rgb frames
+    taumin:
+    taumax:
+    slide_step:
+    tol:
+    sensor_size:
+    is_frame:a boolean variable specifying if the MEI and MHI are computed for rgb frames or events
+    
+    Returns:
+    ------------
+    mei: the energy image of the given stream of frames
+    mhi: the motion history image of the given stream frame
+    
+    """
+
+def hu_moments(m):
+
+def train_model(data_dir, is_frames):
+
+def classify_action(data_dir, cov_mei, cov_mhi, mean_mei_hu, mean_mhi_hu, is_frames=True):
+
+def data_loader(folder_name, mode):
+
+def rectangle_from_img_mask(mask_in, pad=10):
+    """
+    Summary line.
+    
+    Compute a bounding box based on the mask processoed from frame(s)
+    
+    Parameters:
+    ------------
+    mask: binary image with action/object detected
+    pad: size of pad added at the edge of the mask
+    
+    Returns:
+    ------------
+    rectangular bounding box
+    
+    """
+
+def real_time_classification(cov_mei, cov_mhi, mean_mei_hu, mean_mhi_hu, is_frames=True):

@@ -1,0 +1,52 @@
+def get_flow_from_firing_rate(firing_rate):
+    """
+    Summary line.
+
+    Compute the optical flow (vx, vy) from the firing rate of an event-camera.
+
+    Parameters:
+    -----------
+    firing_rate: A 3-dimensional np.ndarray (dtype=double) of the firing rate
+
+
+    Returns:
+    -----------
+    Tuple of np.ndarrays (vx, vy) of the optical flow, computed on the same grid as the firing rate
+    """
+
+def compute_optical_flow(frames_or_events, dt=1/30, is_frames=True, sensor_size=None):
+    """
+    Summary line.
+
+    Compute the optical flow for rgb frames using opencv routine
+
+    Parameters:
+    -----------
+    frames_or_events: 
+    dt: the time difference between two frames
+    is_frames: a boolan variable specifying whether the optical flow is computed for rgb frames or events 
+    sensor_size:
+
+    Returns:
+    ----------
+    flow_out: the optical flow of the given consecutive frames
+    """
+
+def visualize_flow(img_in, flow_in, decimation=15, scale=10, method=0):
+    """
+    Summary line.
+
+    A function to visualize optical flow over the original image
+
+    Parameters:
+    -----------
+    img_in: rgb image - if none is provided, the flow is shown alone
+    flow_in: this is the dense optical flow
+    decimation: how dense the arrows are shown in the vector field
+    scale: scale of the magnitude in the vector field
+    method: vector field or hsv plot
+
+    Returns:
+    ----------
+    None
+    """

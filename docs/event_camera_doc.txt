@@ -1,0 +1,18 @@
+def get_events_from_frames(cur_gray, cur_t, prev_gray, prev_t, prev_sensor_val=None):
+    """
+    Summary line.
+
+    This is the simulation of the event camera from grayscale images
+
+    Parameters:
+    ------------
+    cur_gray: current grayscale image at time cur_t
+    cur_t: more recent time, cur_t > prev_t
+    prev_gray: previous grayscale image at time prev_t
+    prev_t: previous time, prev_t < cur_t
+    prev_sensor_val: sensor val at the previous frame
+
+    Returns:
+    ------------
+    4xN array of events, number of events as an array the size of the image, and the final sensor value
+    """

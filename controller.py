@@ -1034,8 +1034,6 @@ class Controller:
         mask: a binary image with detected target
         label: object target label (if classified)
         flow: the optical flow of the current the previous frames our events
-
-
         """
 
         dt = 1 / 30.0 ### change to real time rate

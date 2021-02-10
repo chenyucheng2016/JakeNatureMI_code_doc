@@ -1,0 +1,25 @@
+def update_action_classification_qh(self, frame, cov_mei, cov_mhi, mean_mei_hu, mean_mhi_hu, rgb_images, scores_cache,
+                                        is_frames, use_probability):
+        """
+        Summary line.
+    
+        recognize the action label from a stream of frames. This method is used in both frame and event based approaches.
+    
+        Parameters:
+        ------------
+        frame:
+        cov_mei:
+        cov_mhi:
+        mean_mei_hu: 
+        mean_mhi_hu: 
+        rgb_images:
+        scores_cache:
+        is_frames:
+        use_probability:
+    
+        Returns:
+        ------------
+        label: action classification label
+        frame: processed frame 
+    
+        """

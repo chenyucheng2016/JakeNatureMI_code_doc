@@ -1,0 +1,61 @@
+def process_new_frame(self, frame, rgb_images, scores_cache, frame_prev, sensor_val, drone_yaw, drone_vx, drone_vy, drone_vz, is_frames):
+        """
+        Summary line.
+        The method admits the sensor data from the DJI quadcopter, and prcesses the data to complete tasks: action recognition, object recognition and fight control.
+
+        Parameters:
+        ------------
+        frame: the orginal rgb frame captured from the DJI quadcopter front camera
+        rgb_images:
+        scores_cache:
+        frame_prev: 
+        sensor_val:
+        drone_yaw: the yaw angle of the quadcopter frm onboard sensor
+        drone_vx: the velocity along the longitudinal axis of the quadcopter
+        drone_vy: the velocity along the lateral axis of the quadcopter
+        drone_vz: the velocity along the vertical axis of the quadcopter pointing toward the earth
+        is_frames: 
+
+        Returns:
+        ------------
+        frame: the processed image frame
+
+        """
+def _process_keypoints(self, pose_keypoints, t_stamp):
+        """
+        Summary line.
+        Process the new keypoint measurements and match them with the existing persons list, adding or removing tracked people as necessary
+
+        Parameters:
+        -----------
+        pose_keypoints: new peoplpe pose keypoints measurements
+        t_stamp: the time stamp of the particular pose keypoints
+
+        Returns:
+        -----------
+        None
+        """
+def update_object_classification_qh(self, frame, frame_prev, all_events, t, sensor_val, ego_vx, ego_vy, is_frames, is_classify):
+        """
+        Summary line.
+
+        This method uses the current and previous rgb frames to detect and (or) recognize the designated object
+
+        Parameters:
+        -----------
+        frame: the current rgb frame capture by the quadcopter
+        frame_prev: all previous rgb frames
+        all_events: all events up till this time step
+        t: current time step
+        sensor_val:
+        ego_vx: the quadcopter's self longitudinal velocity
+        ego_vy: the quadcopter's self lateral velocity
+        is_frames: a boolean variable specifying whether computing over rgb frames or events
+        is_classify: a boolean variable specifying whether classifying targets after detecting the target's existence
+
+        Returns:
+        -----------
+        mask: a binary image with detected target
+        label: object target label (if classified)
+        flow: the optical flow of the current the previous frames our events
+        """
